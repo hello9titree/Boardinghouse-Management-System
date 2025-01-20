@@ -1,0 +1,45 @@
+{% load static %}
+{% load bootstrap_icons %}  
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+
+        <style>
+            body { 
+                background-image: url('{% static 'images/arabiclogos.jpg' %}'); 
+                background-size: cover; 
+                background-position: center; 
+                background-repeat: no-repeat;
+                height: 100vh;
+                width: 100%;
+                padding: 50px; 
+                color: white; 
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+        </style>
+            
+    </head>
+    <body>
+        {% include "boardinghouse/menus/parent_nav.html" %}
+
+        <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; ">
+            <div>
+                <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); background: -webkit-linear-gradient(gold, goldenrod); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome to Our Boarding House</h1>
+                <p>Your comfort is our priority</p>
+                <a href="{% url 'boardinghouse:landlord_list' %}" class="btn btn-primary">Get Started!</a>
+            </div>
+        </div>
+
+        <script src="" async defer></script>
+    </body>
+</html>

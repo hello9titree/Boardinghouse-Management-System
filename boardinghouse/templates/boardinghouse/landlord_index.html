@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap_icons %} 
+
+{% block content %}
+    <div class="container">
+        <h1>Landlord Home</h1>
+        <hr>
+        <div class="container">
+            <h5 class="text-end">{{landlord.first_name}} {{landlord.last_name}}</h5>
+            
+            <br>
+            <h6>Rooms</h6>
+            <div class="text-end">
+                <a class="me-2 text-decoration-none" href="{% url "boardinghouse:add_room" landlord.id %}">add</a>
+            </div>
+            <div class="card mt-5">
+                <div class="card-body">
+                    {% if rooms %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">{% bs_icon 'door-open' %} Room No.</th>
+                                    <th scope="col">{% bs_icon 'person-standing' %} Capacity</th>
+                                    <th scope="col">{% bs_icon 'currency-dollar' %} Price</th>
+                                    <th scope="col" class="text-end">{% bs_icon 'gear' %} Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for room in rooms %}
+                                    {% if room.is_available %}
+                                        <tr>
+                                        
+                                            <th scope="row">{{ forloop.counter }}</th> <!-- This will give you the incrementing row number -->
+                                            <td>{{room.room_number}}</td>
+                                            <td>{{room.capacity}}</td>
+                                            <td>{{room.price_per_month}}</td>
+                                            <td>
+                                                <div class="text-end">
+                                                    <a class="me-3 text-decoration-none" href="{% url "boardinghouse:edit_room" landlord.id room.id %}" data-bs-toggle="tooltip" data-bs-placement="left" title="edit">{% bs_icon 'pencil' %}</a>
+                                                    <a class="me-3 text-danger text-decoration-none" href="{% url "boardinghouse:delete_room" landlord.id room.id %}" data-bs-toggle="tooltip" data-bs-placement="right" title="delete">{% bs_icon 'trash' %}</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr class="text-danger">
+                                        
+                                            <th scope="row">{{ forloop.counter }}</th> <!-- This will give you the incrementing row number -->
+                                            <td>{{room.room_number}}</td>
+                                            <td>{{room.capacity}}</td>
+                                            <td>{{room.price_per_month}}</td>
+                                            <td>
+                                                <div class="text-end">
+                                                    <a class="me-3 text-decoration-none" href="{% url "boardinghouse:edit_room" landlord.id room.id %}" data-bs-toggle="tooltip" data-bs-placement="left" title="edit">{% bs_icon 'pencil' %}</a>
+                                                    <a class="me-3 text-danger text-decoration-none" href="{% url "boardinghouse:delete_room" landlord.id room.id %}" data-bs-toggle="tooltip" data-bs-placement="right" title="delete">{% bs_icon 'trash' %}</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %} 
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="text-muted text-center">No rooms yet...</p>
+                        <a href="#" class="btn btn-primary">Add Room</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <h6>Tenants</h6>
+            <div class="text-end">
+                <a class="me-2 text-decoration-none" href="{% url "boardinghouse:add_tenant" landlord.id %}">add</a>
+            </div>
+            <div class="card mt-5">
+                <div class="card-body">
+                    {% if tenants %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">{% bs_icon '1-circle' %}First</th>
+                                    <th scope="col">{% bs_icon '2-circle' %}Last</th>
+                                    <th scope="col">{% bs_icon 'envelope' %}Email</th>
+                                    <th scope="col">{% bs_icon 'phone' %}Phone</th>
+                                    <th scope="col">{% bs_icon 'calendar-date' %}Date</th>
+                                    <th scope="col" class="text-end">{% bs_icon 'gear' %} Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for tenant in tenants %}
+                                    <tr>
+                                    
+                                        <th scope="row">{{forloop.counter}}</th>
+                                        <td>{{tenant.first_name}}</td>
+                                        <td>{{tenant.last_name}}</td>
+                                        <td>{{tenant.email}}</td>
+                                        <td>{{tenant.phone_number}}</td>
+                                        <td>{{tenant.move_in_date}}</td>
+                                        <td>
+                                            <div class="text-end">
+                                                <a class="me-3 text-decoration-none" href="{% url "boardinghouse:edit_tenant" landlord.id tenant.id %}" data-bs-toggle="tooltip" data-bs-placement="left" title="edit">{% bs_icon 'pencil' %}</a>
+                                                <a class="me-3 text-danger text-decoration-none" href="{% url "boardinghouse:delete_tenant" landlord.id tenant.id %}" data-bs-toggle="tooltip" data-bs-placement="right" title="delete">{% bs_icon 'trash' %}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="text-muted text-center">No tenants yet...</p>
+                        <a href="#" class="btn btn-primary">Add Tenant</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+{% endblock content %}

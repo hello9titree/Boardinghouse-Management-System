@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap_icons %}
+
+
+{% block content %}
+
+    <h1>Landlords</h1>
+    <br>
+    {% comment %} <a class="btn btn-primary" href="{% url "boardinghouse:add_landlord" %}">Add Landlord</a> {% endcomment %}
+    
+    <style>
+        .floating-btn {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;" >
+        <a class="btn btn-primary rounded-circle floating-btn" href="{% url "boardinghouse:add_landlord" %}" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;" >
+            {%bs_icon 'person-plus-fill' %}
+        </a>
+    </div>
+
+    
+    <br><br>
+    <div class="row justify-content-center">
+        {% if landlords %}
+            {% for landlord in landlords %}
+                <div class="card mt-3 me-3" style="width: 18rem;">
+                    <img src="{% static "images/profilepic.jpg" %}" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{landlord.first_name}} {{landlord.last_name}}</h5>
+                        {% comment %} <p class="card-text text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.</p> {% endcomment %}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item link-primary">{{landlord.email}}</li>
+                            <li class="list-group-item text-muted">{{landlord.phone_number}}</li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url "boardinghouse:landlord_home" landlord.id %}" class="btn btn-primary">Open</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No landlords are available.</p>
+        {% endif %}
+    </div>
+
+{% endblock content %}
